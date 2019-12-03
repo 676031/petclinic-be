@@ -1,0 +1,21 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd"
+                   logicalFilePath="init_data.xml">
+
+    <changeSet id="init_data" author="javacc" dbms="postgresql" context="dml">
+        <comment>Initial data set</comment>
+        <sqlFile encoding="utf8"
+                 endDelimiter=";"
+                 path="postgresql/data.sql"
+                 relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="init_data" author="javacc" dbms="hsqldb" context="dml">
+        <comment>Initial data set</comment>
+        <sqlFile encoding="utf8"
+                 endDelimiter=";"
+                 path="hsqldb/data.sql"
+                 relativeToChangelogFile="true"/>
+    </changeSet>
+
+</databaseChangeLog>
