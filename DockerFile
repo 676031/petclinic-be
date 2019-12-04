@@ -7,5 +7,13 @@ WORKDIR /app
 RUN git clone https://github.com/676031/petclinic-be.git
 RUN cp ./petclinic-be/* /app -r
 RUN mvn clean install
+<<<<<<< HEAD:Dockerfile
 RUN cp ./target/petclinic.jar /app
 CMD ["mvn spring-boot:run"]
+=======
+
+FROM openjdk:8-jre-alpine
+WORKDIR /app
+COPY --from=1 /app/target/petclinic.jar /app
+CMD ["mvn spring-boot:run"]
+>>>>>>> c60b1a18a59df023cefe6b7d295976817aa69d07:DockerFile
