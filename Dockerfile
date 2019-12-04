@@ -1,9 +1,13 @@
-FROM maven:3.6.1-jdk-8
+FROM alpine/git
 WORKDIR /app
-COPY . /app
-RUN mvn -f /app/pom.xml clean package
+RUN git clone https://github.com/676031/petclinic-be.git
 
-FROM openjdk:8u171-jre-alpine
-WORKDIR /tmp
-COPY --from=0 /app/target/*.jar /tmp
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/tmp/petclinic.jar"]
+FROM maven:3.5-jdk-8-alpine
+WORKDIR /app
+COPY --from=0 /app/petclinic-be /app
+RUN mvn clean install
+
+FROM openjdk:8-jre-alpine
+WORKDIR /app
+COPY --from=1 /app/target/petclinic.jar /app
+CMD ["mvn spring-boot:run"]
