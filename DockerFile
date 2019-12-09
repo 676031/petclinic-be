@@ -10,4 +10,4 @@ RUN mvn clean install
 FROM openjdk:8-jre-alpine
 WORKDIR /
 COPY --from=1 /target/petclinic.jar /
-CMD ["mvn spring-boot:run"]
+ENTRYPOINT ["mvn spring-boot:run"]
