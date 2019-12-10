@@ -5,5 +5,7 @@ RUN mvn clean install
 
 FROM openjdk:8-jre-alpine
 WORKDIR /
-COPY --from=1 /target/petclinic.jar /
+RUN pwd
+COPY --from=0 /target/petclinic.jar /
+RUN pwd
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/petclinic.jar"]
