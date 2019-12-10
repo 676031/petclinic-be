@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment 
 metadata:
  name: petclinic-be
@@ -26,11 +26,11 @@ spec:
         ports:
           - containerPort: 8080
         env:
-          - name: POSTGRES_USER
+          - name: "POSTGRES_USER"
             value: petclinic
-          - name: POSTGRES_PASSWORD
+          - name: "POSTGRES_PASSWORD"
             value: petclinic
-          - name: POSTGRES_IP
+          - name: "POSTGRES_IP"
             value: 35.197.78.35
 
 ---
