@@ -4,37 +4,33 @@ metadata:
  name: backend
  labels:
      app: backend
-     type: backend 
 spec:
+  replicas: 1
   template:
     metadata:
      name: backend
      labels:
         app: backend
-        type: backend
     spec:
       containers:
       - name: backend
-        image: snap032/backend:25
+        image: gcr.io/task1-260513/petclinic-be
         ports:
+          - name: postgresql
           - containerPort: 8080
-        envFrom:
-          - configMapRef:
-              name: postgres-config
-
-  replicas: 1
-  selector:
-     matchLabels:
-        type: backend
-  strategy:
-    type: Recreate
+        env:
+          - name: POSTGRE_JDBC_USERNAME
+            value: petclinic
+          - name: SONARQUBE_JDBC_PASSWORD
+            value: petclinic
+          - name: SONARQUBE_JDBC_URL
+            value: jdbc:postgresql://35.197.78.35:5432/postgres?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true
 
 ---
-
-apiVersion: v1 
-kind: Service 
+apiVersion: v1
+kind: Service
 metadata:
-    name: service-backend 
+    name: service-backend
 spec:
     type: NodePort
     ports:
@@ -43,6 +39,5 @@ spec:
        nodePort: 30016
     selector:
        app: backend
-       type: backend
     sessionAffinity: None
     type: NodePort
