@@ -20,21 +20,18 @@ spec:
         type: petclinic-be
     spec:
       containers:
-      - name: backend
+      - name: petclinic-be
         image: gcr.io/task1-260513/petclinic-be:latest
         imagePullPolicy: Always
         ports:
           - containerPort: 8080
-        envFrom:
-          - configMapRef:
-              name: postgres-config
         env:
           - name: POSTGRES_USER
             value: petclinic
           - name: POSTGRES_PASSWORD
             value: petclinic
-          - name: POSTGRES_JDBC_URL
-            value: jdbc:postgresql://35.197.78.35:5432/postgres?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true
+          - name: POSTGRES_IP
+            value: 35.197.78.35
 
 ---
 apiVersion: v1
