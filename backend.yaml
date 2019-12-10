@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment 
 metadata:
- name: backend
+ name: petclinic-be
  labels:
-     app: backend
-     type: backend
+     app: petclinic-be
+     type: petclinic-be
 spec:
   replicas: 1
   selector:
     matchLabels:
-      type: backend
+      type: petclinic-be
   strategy:
     type: Recreate
   template:
     metadata:
-     name: backend
+     name: petclinic-be
      labels:
-        app: backend
-        type: backend
+        app: petclinic-be
+        type: petclinic-be
     spec:
       containers:
       - name: backend
@@ -48,7 +48,7 @@ spec:
        port: 8080
        nodePort: 30016
     selector:
-       app: backend
-       type: backend
+       app: petclinic-be
+       type: petclinic-be
     sessionAffinity: None
     type: NodePort
