@@ -27,7 +27,7 @@ spec:
           - containerPort: 8080
         env:
           - name: POSTGRES_JDBC_URL
-            value: jdbc:postgresql://35.197.78.35:5432/postgres?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true
+            value: jdbc:postgresql://35.197.78.35:5432/petclinic
           - name: POSTGRES_USER
             value: petclinic
           - name: POSTGRES_PASSWORD
