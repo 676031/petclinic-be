@@ -4,35 +4,30 @@ metadata:
  name: petclinic-be
  labels:
      app: petclinic-be
-     tier: backend
-     track: stable
+     type: petclinic-be
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: petclinic-be
-      tier: backend
-      track: stable
+      type: petclinic-be
   strategy:
     type: Recreate
   template:
     metadata:
      name: petclinic-be
      labels:
-      app: petclinic-be
-      tier: backend
-      track: stable
+        app: petclinic-be
+        type: petclinic-be
     spec:
       containers:
       - name: petclinic-be
         image: gcr.io/task1-260513/petclinic-be:latest
         imagePullPolicy: Always
         ports:
-          - name: http
-            containerPort: 8080
+          - containerPort: 8080
         env:
           - name: POSTGRES_JDBC_URL
-            value: jdbc:postgresql://35.197.78.35:5432/petclinic?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true
+            value: jdbc:postgresql://35.197.78.35:5432/petclinic
           - name: POSTGRES_USER
             value: petclinic
           - name: POSTGRES_PASSWORD
@@ -42,12 +37,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: petclinic-be
+    name: service-backend
 spec:
-  selector:
-    app: petclinic-be
-    tier: backend
-  ports:
-  - protocol: TCP
-    port: 8080
-    targetPort: http
+    type: NodePort
+    ports:
+     - targetPort: 8080
+       port: 8080
+       nodePort: 30016
+    selector:
+       app: petclinic-be
+       type: petclinic-be
+    sessionAffinity: None
+    type: NodePort
